@@ -1,0 +1,1 @@
+ALTER TABLE chave ADD dataHoraInativacao TIMESTAMP NULL;

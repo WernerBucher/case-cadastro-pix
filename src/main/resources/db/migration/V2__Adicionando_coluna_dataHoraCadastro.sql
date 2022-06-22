@@ -1,0 +1,1 @@
+ALTER TABLE chave ADD dataHoraCadastro TIMESTAMP NOT NULL;
