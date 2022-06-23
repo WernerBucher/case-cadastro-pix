@@ -8,7 +8,7 @@ CREATE TABLE chave (
     nomeCorrentista VARCHAR(30) NOT NULL,
     sobrenomeCorrentista VARCHAR(45) NULL,
     tipoPessoa CHAR(1) NOT NULL,
-    CONSTRAINT CHK_tipoChave CHECK (tipoChave in ('ALEATORIO', 'CELULAR', 'CNPF', 'CPF', 'EMAIL')),
+    CONSTRAINT CHK_tipoChave CHECK (tipoChave in ('ALEATORIO', 'CELULAR', 'CNPJ', 'CPF', 'EMAIL')),
     CONSTRAINT CHK_tipoConta CHECK (tipoConta in ('CORRENTE', 'POUPANCA')),
     CONSTRAINT CHK_tipoPessoa CHECK (tipoPessoa in ('F', 'J'))
 );
