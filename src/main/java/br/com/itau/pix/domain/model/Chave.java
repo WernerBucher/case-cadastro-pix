@@ -3,7 +3,6 @@ package br.com.itau.pix.domain.model;
 import br.com.itau.pix.domain.dto.RequestDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.enums.TipoPessoa;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -17,7 +16,6 @@ import java.util.UUID;
 @Table(name = "chave")
 @Getter
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Chave{
 
     @Id
@@ -65,7 +63,7 @@ public class Chave{
     private Date dataHoraInativacao;
 
     public Chave(RequestDTO dto) {
-        this.tipoChave = TipoChave.CELULAR;
+        this.tipoChave = TipoChave.valueOf(dto.getTipoChave());
         this.valorChave = dto.getValorChave();
         this.tipoConta = dto.getTipoConta();
         this.numeroAgencia = dto.getNumeroAgencia();

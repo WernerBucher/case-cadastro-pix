@@ -5,20 +5,18 @@ import br.com.itau.pix.domain.dto.RequestDTO;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ChaveService {
 
-    @Autowired
-    ChaveRepository repository;
-
-    @Autowired
-    private List<IValidadorNovaChave> validador;
+    private final ChaveRepository repository;
+    private final List<IValidadorNovaChave> validador;
 
 
     public List<Chave> listarTodasChaves() {
