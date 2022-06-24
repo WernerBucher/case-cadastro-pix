@@ -10,7 +10,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class ValidaEmail implements IValidadorNovaChave {
+public class ValidaTipoAleatorio implements IValidadorNovaChave {
+
+    public static final String REGEX_ALEATORIO = "^\\w+$";
+    public static final int TAMANHO_MAX = 36;
 
     @Override
     public Integer getPrioridade() {
@@ -19,12 +22,10 @@ public class ValidaEmail implements IValidadorNovaChave {
 
     @Override
     public void chain(RequestDTO requisicao) {
-        if (TipoChave.EMAIL.equals(TipoChave.valueOf(requisicao.getTipoChave()))) {
-            String regex = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
-
-            Pattern pattern = Pattern.compile(regex);
+        if (TipoChave.ALEATORIO.equals(TipoChave.valueOf(requisicao.getTipoChave()))) {
+            Pattern pattern = Pattern.compile(REGEX_ALEATORIO);
             Matcher matcher = pattern.matcher(requisicao.getValorChave());
-            if(!matcher.find() || requisicao.getValorChave().length() > 77){
+            if(!matcher.find() || requisicao.getValorChave().length() > TAMANHO_MAX){
                 throw new RegexException(requisicao.getTipoChave());
             }
         }

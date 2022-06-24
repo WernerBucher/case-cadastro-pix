@@ -10,7 +10,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class ValidaCelular implements IValidadorNovaChave {
+public class ValidaTipoEmail implements IValidadorNovaChave {
+
+    public static final String REGEX_EMAIL = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+    public static final int TAMANHO_MAX = 77;
 
     @Override
     public Integer getPrioridade() {
@@ -19,12 +22,10 @@ public class ValidaCelular implements IValidadorNovaChave {
 
     @Override
     public void chain(RequestDTO requisicao) {
-        if (TipoChave.CELULAR.equals(TipoChave.valueOf(requisicao.getTipoChave()))) {
-            String regex = "\\+([0-9]{1,2})+([0-9]{1,3})+([0-9]{9})";
-
-            Pattern pattern = Pattern.compile(regex);
+        if (TipoChave.EMAIL.equals(TipoChave.valueOf(requisicao.getTipoChave()))) {
+            Pattern pattern = Pattern.compile(REGEX_EMAIL);
             Matcher matcher = pattern.matcher(requisicao.getValorChave());
-            if(!matcher.find()){
+            if(!matcher.find() || requisicao.getValorChave().length() > TAMANHO_MAX){
                 throw new RegexException(requisicao.getTipoChave());
             }
         }

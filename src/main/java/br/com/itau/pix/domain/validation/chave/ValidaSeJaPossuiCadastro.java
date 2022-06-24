@@ -5,16 +5,16 @@ import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.ChaveJaExisteException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class ValidaSeJaPossuiCadastro implements IValidadorNovaChave {
 
-    @Autowired
-    ChaveRepository repository;
+    private final ChaveRepository repository;
 
     @Override
     public Integer getPrioridade() {

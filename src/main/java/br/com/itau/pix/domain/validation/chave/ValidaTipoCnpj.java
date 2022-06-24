@@ -2,13 +2,13 @@ package br.com.itau.pix.domain.validation.chave;
 
 import br.com.itau.pix.domain.dto.RequestDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
-import br.com.itau.pix.domain.validation.CpfValidator;
+import br.com.itau.pix.domain.validation.CnpjValidator;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.RegexException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidaCpf implements IValidadorNovaChave {
+public class ValidaTipoCnpj implements IValidadorNovaChave {
 
     @Override
     public Integer getPrioridade() {
@@ -17,11 +17,8 @@ public class ValidaCpf implements IValidadorNovaChave {
 
     @Override
     public void chain(RequestDTO requisicao) {
-        if (TipoChave.CPF.equals(TipoChave.valueOf(requisicao.getTipoChave()))) {
-
-            boolean cpfValido = CpfValidator.validaCpf(requisicao.getValorChave());
-
-            if (!cpfValido) {
+        if (TipoChave.CNPJ.equals(TipoChave.valueOf(requisicao.getTipoChave()))) {
+            if (!CnpjValidator.validaCnpj(requisicao.getValorChave())) {
                 throw new RegexException(requisicao.getTipoChave());
             }
         }
