@@ -1,0 +1,42 @@
+[
+  {
+    "tipoChave": "EMAIL",
+    "valorChave": "werner.bucher@teste.com.br",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "EMAIL",
+    "valorChave": "werner@email.com",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "EMAIL",
+    "valorChave": "wernerlavorattobucher@email-com-setenta-e-sete-caracteres-------valido.com.br",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "CELULAR",
+    "valorChave": "+5544999631530",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Outro tipo de chave, não deve validar",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "tipoChave": "ALEATORIO",
+    "valorChave": "chavealeatoria1234",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "ALEATORIO",
+    "valorChave": "sadfsa9s87df98sa7das",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "ALEATORIO",
+    "valorChave": "09s8df9sad09f809dsa",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "CPF",
+    "valorChave": "750.481.200-51",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  }
+]

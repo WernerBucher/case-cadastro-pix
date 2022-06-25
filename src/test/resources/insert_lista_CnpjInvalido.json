@@ -1,0 +1,42 @@
+[
+  {
+    "tipoChave": "CNPJ",
+    "valorChave": "11111111111111",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "CNPJ",
+    "valorChave": "32387612371658",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "CNPJ",
+    "valorChave": "323876123716",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "CNPJ",
+    "valorChave": "asdasdasdsadsad",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  }
+]

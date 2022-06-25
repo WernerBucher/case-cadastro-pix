@@ -1,0 +1,42 @@
+[
+  {
+    "tipoChave": "CELULAR",
+    "valorChave": "11111111111111",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "CELULAR",
+    "valorChave": "32387658",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "CELULAR",
+    "valorChave": "323876123716",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  },
+  {
+    "tipoChave": "CELULAR",
+    "valorChave": "asdasdasdsadsad",
+    "tipoConta": "CORRENTE",
+    "numeroAgencia": 4340,
+    "numeroConta": 1,
+    "nomeCorrentista": "Correntista 1",
+    "sobrenomeCorrentista": "Silva",
+    "tipoPessoa": "F"
+  }
+]
