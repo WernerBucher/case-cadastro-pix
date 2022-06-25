@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.InclusaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.RegexException;
 import br.com.itau.pix.util.MockUtils;
@@ -18,14 +18,14 @@ class ValidaTipoAleatorioTest {
     public static final String LISTA_MOCK_VALIDO = "src/test/resources/insert_lista_AleatorioValido.json";
     public static final String LISTA_MOCK_INVALIDO = "src/test/resources/insert_lista_AleatorioInvalido.json";
     IValidadorNovaChave validador;
-    List<InclusaoDTO> listaValida;
-    List<InclusaoDTO> listaInvalida;
+    List<ChaveDTO> listaValida;
+    List<ChaveDTO> listaInvalida;
 
     @BeforeEach
     void setUp() throws IOException {
         validador = new ValidaTipoAleatorio();
-        listaValida = MockUtils.listaMockDeRequisicaoDeInsert(LISTA_MOCK_VALIDO);
-        listaInvalida = MockUtils.listaMockDeRequisicaoDeInsert(LISTA_MOCK_INVALIDO);
+        listaValida = MockUtils.listaMockDeRequisicao(LISTA_MOCK_VALIDO);
+        listaInvalida = MockUtils.listaMockDeRequisicao(LISTA_MOCK_INVALIDO);
     }
 
     @Test

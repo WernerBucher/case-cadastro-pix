@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.IRequisicaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.RegexException;
@@ -21,11 +21,11 @@ public class ValidaTipoEmail implements IValidadorNovaChave {
     }
 
     @Override
-    public void chain(IRequisicaoDTO requisicao) {
-        if (TipoChave.EMAIL.equals(requisicao.getTipoChave())) {
-            String email = requisicao.getValorChave();
+    public void chain(ChaveDTO dto) {
+        if (TipoChave.EMAIL.equals(dto.getTipoChave())) {
+            String email = dto.getValorChave();
             if(!ehEmailValido(email) || tamanhoMaiorQueLimite(email)){
-                throw new RegexException(requisicao.getTipoChave().name());
+                throw new RegexException(dto.getTipoChave().name());
             }
         }
     }

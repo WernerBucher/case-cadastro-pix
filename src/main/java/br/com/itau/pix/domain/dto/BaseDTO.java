@@ -4,10 +4,7 @@ import br.com.itau.pix.domain.enums.TipoConta;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 public abstract class BaseDTO {
@@ -26,8 +23,10 @@ public abstract class BaseDTO {
     private Integer numeroConta;
 
     @NotBlank
+    @Size(max = 30)
     private String nomeCorrentista;
 
+    @Size(max = 45)
     private String sobrenomeCorrentista;
 
     @NotNull

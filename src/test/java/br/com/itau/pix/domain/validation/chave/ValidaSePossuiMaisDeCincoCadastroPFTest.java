@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.IRequisicaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
@@ -37,14 +37,14 @@ class ValidaSePossuiMaisDeCincoCadastroPFTest {
 
     IValidadorNovaChave validador;
 
-    IRequisicaoDTO dtoInsert;
-    IRequisicaoDTO dtoUpdate;
+    ChaveDTO dtoInsert;
+    ChaveDTO dtoUpdate;
 
     @BeforeEach
     void setUp() throws IOException {
         validador = new ValidaSePossuiMaisDeCincoCadastroPF(repository);
-        dtoInsert = MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_NOVO_MOCK_VALIDO);
-        dtoUpdate = MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_EXISTENTE_MOCK_VALIDO);
+        dtoInsert = MockUtils.objetoMockDeRequisicao(OBJETO_NOVO_MOCK_VALIDO);
+        dtoUpdate = MockUtils.objetoMockDeRequisicao(OBJETO_EXISTENTE_MOCK_VALIDO);
     }
 
     @Test
@@ -54,7 +54,7 @@ class ValidaSePossuiMaisDeCincoCadastroPFTest {
 
     @Test
     void devePassarSeNaoForPF() {
-        assertDoesNotThrow(() -> validador.chain(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_PJ_NOVO_MOCK_VALIDO)));
+        assertDoesNotThrow(() -> validador.chain(MockUtils.objetoMockDeRequisicao(OBJETO_PJ_NOVO_MOCK_VALIDO)));
     }
 
     @Test
@@ -67,10 +67,10 @@ class ValidaSePossuiMaisDeCincoCadastroPFTest {
     @Test
     void devePassarSeNovaChaveEhEncontradaQuatroChavesVinculadaAhConta() throws IOException {
         List<Chave> chaveList = new ArrayList<>();
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO1_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO2_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO3_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO1_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO2_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO3_NOVO_MOCK_VALIDO)));
 
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
         assertDoesNotThrow(() -> validador.chain(dtoInsert));
@@ -79,11 +79,11 @@ class ValidaSePossuiMaisDeCincoCadastroPFTest {
     @Test
     void deveGerarExceptionSeNovaChaveEhEncontradaCincoChavesVinculadasAhConta() throws IOException {
         List<Chave> chaveList = new ArrayList<>();
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO1_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO2_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO3_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO4_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO1_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO2_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO3_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO4_NOVO_MOCK_VALIDO)));
 
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
         assertThrows(PossuiLimiteMaximoDeChavesException.class, () -> validador.chain(dtoInsert));
@@ -101,10 +101,10 @@ class ValidaSePossuiMaisDeCincoCadastroPFTest {
     @Test
     void devePassarSeEdicaoEhValorChaveNaoContemNaListaMasNaoAtingiuLimite() throws IOException {
         List<Chave> chaveList = new ArrayList<>();
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO1_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO2_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO3_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO1_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO2_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO3_NOVO_MOCK_VALIDO)));
 
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
         assertDoesNotThrow(() -> validador.chain(dtoUpdate));
@@ -113,11 +113,11 @@ class ValidaSePossuiMaisDeCincoCadastroPFTest {
     @Test
     void deveGerarExceptionSeEdicaoEhValorChaveNaoContemNaListaMasAtingiuLimite() throws IOException {
         List<Chave> chaveList = new ArrayList<>();
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO1_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO2_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO3_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO4_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO1_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO2_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO3_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO4_NOVO_MOCK_VALIDO)));
 
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
         assertThrows(PossuiLimiteMaximoDeChavesException.class, () -> validador.chain(dtoInsert));
@@ -126,11 +126,11 @@ class ValidaSePossuiMaisDeCincoCadastroPFTest {
     @Test
     void devePassarSeEdicaoEhValorChaveContemNaListaMasAtingiuLimite() throws IOException {
         List<Chave> chaveList = new ArrayList<>();
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO1_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO2_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO3_NOVO_MOCK_VALIDO)));
-        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_EXISTENTE_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO1_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO2_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO3_NOVO_MOCK_VALIDO)));
+        chaveList.add(new Chave(MockUtils.objetoMockDeRequisicao(OBJETO_EXISTENTE_MOCK_VALIDO)));
 
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
         assertThrows(PossuiLimiteMaximoDeChavesException.class, () -> validador.chain(dtoInsert));

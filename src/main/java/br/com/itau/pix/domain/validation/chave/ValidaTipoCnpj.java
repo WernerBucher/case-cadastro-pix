@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.IRequisicaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.validation.CnpjValidator;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
@@ -16,10 +16,10 @@ public class ValidaTipoCnpj implements IValidadorNovaChave {
     }
 
     @Override
-    public void chain(IRequisicaoDTO requisicao) {
-        if (TipoChave.CNPJ.equals(requisicao.getTipoChave())) {
-            if (!CnpjValidator.validaCnpj(requisicao.getValorChave())) {
-                throw new RegexException(requisicao.getTipoChave().name());
+    public void chain(ChaveDTO dto) {
+        if (TipoChave.CNPJ.equals(dto.getTipoChave())) {
+            if (!CnpjValidator.validaCnpj(dto.getValorChave())) {
+                throw new RegexException(dto.getTipoChave().name());
             }
         }
     }

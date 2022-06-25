@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.IRequisicaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
@@ -30,14 +30,14 @@ class ValidaSeJaPossuiCadastroTest {
 
     IValidadorNovaChave validador;
 
-    IRequisicaoDTO dtoInsert;
-    IRequisicaoDTO dtoUpdate;
+    ChaveDTO dtoInsert;
+    ChaveDTO dtoUpdate;
 
     @BeforeEach
     void setUp() throws IOException {
         validador = new ValidaSeJaPossuiCadastro(repository);
-        dtoInsert = MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_NOVO_MOCK_VALIDO);
-        dtoUpdate = MockUtils.objetoMockDeRequisicaoDeInsert(OBJETO_EXISTENTE_MOCK_VALIDO);
+        dtoInsert = MockUtils.objetoMockDeRequisicao(OBJETO_NOVO_MOCK_VALIDO);
+        dtoUpdate = MockUtils.objetoMockDeRequisicao(OBJETO_EXISTENTE_MOCK_VALIDO);
     }
 
     @Test

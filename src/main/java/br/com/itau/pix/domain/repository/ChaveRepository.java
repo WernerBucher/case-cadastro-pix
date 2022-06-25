@@ -13,5 +13,6 @@ import java.util.UUID;
 public interface ChaveRepository extends JpaRepository<Chave, UUID> {
 
     Optional<Chave> findByValorChave(String chave);
+
     List<Chave> findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(Integer numeroAgencia, Integer numeroConta, TipoPessoa tipoPessoa);
 }

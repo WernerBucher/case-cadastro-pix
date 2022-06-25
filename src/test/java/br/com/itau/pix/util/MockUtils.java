@@ -1,6 +1,6 @@
 package br.com.itau.pix.util;
 
-import br.com.itau.pix.domain.dto.InclusaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,11 +14,11 @@ import java.util.stream.Stream;
 
 public class MockUtils {
 
-    public static List<InclusaoDTO> listaMockDeRequisicaoDeInsert(String pathname) throws IOException {
+    public static List<ChaveDTO> listaMockDeRequisicao(String pathname) throws IOException {
         final ObjectMapper objectMapper = new ObjectMapper();
-        List<InclusaoDTO> lista = objectMapper.readValue(
+        List<ChaveDTO> lista = objectMapper.readValue(
                 new File(pathname)
-                , new TypeReference<List<InclusaoDTO>>() {
+                , new TypeReference<List<ChaveDTO>>() {
                 });
         return lista;
     }
@@ -29,11 +29,11 @@ public class MockUtils {
         }
     }
 
-    public static InclusaoDTO objetoMockDeRequisicaoDeInsert(String pathname) throws IOException {
+    public static ChaveDTO objetoMockDeRequisicao(String pathname) throws IOException {
         final ObjectMapper objectMapper = new ObjectMapper();
-        InclusaoDTO objeto = objectMapper.readValue(
+        ChaveDTO objeto = objectMapper.readValue(
                 new File(pathname)
-                , new TypeReference<InclusaoDTO>() {
+                , new TypeReference<ChaveDTO>() {
                 });
         return objeto;
     }

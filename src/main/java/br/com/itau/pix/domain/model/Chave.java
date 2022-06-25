@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.model;
 
-import br.com.itau.pix.domain.dto.IRequisicaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.enums.TipoConta;
 import br.com.itau.pix.domain.enums.TipoPessoa;
@@ -64,7 +64,7 @@ public class Chave{
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraInativacao;
 
-    public Chave(IRequisicaoDTO dto) {
+    public Chave(ChaveDTO dto) {
         this.tipoChave = dto.getTipoChave();
         this.valorChave = dto.getValorChave();
         this.tipoConta = dto.getTipoConta();
@@ -75,4 +75,8 @@ public class Chave{
         this.tipoPessoa = dto.getTipoPessoa();
     }
 
+    public ChaveDTO getDTO() {
+        ChaveDTO dto = new ChaveDTO(this);
+        return dto;
+    }
 }

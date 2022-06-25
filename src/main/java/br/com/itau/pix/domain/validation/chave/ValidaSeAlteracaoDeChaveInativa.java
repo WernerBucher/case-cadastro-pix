@@ -12,20 +12,20 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class ValidaSeJaPossuiCadastro implements IValidadorNovaChave {
+public class ValidaSeAlteracaoDeChaveInativa implements IValidadorNovaChave {
 
     private final ChaveRepository repository;
 
     @Override
     public Integer getPrioridade() {
-        return 10;
+        return 11;
     }
 
     @Override
     public void chain(ChaveDTO dto) {
-        if(ehNovaChave(dto)){
-            Optional<Chave> chaveSalva = repository.findByValorChave(dto.getValorChave());
-            if (chaveSalva.isPresent()) {
+        if(!ehNovaChave(dto)){
+            Optional<Chave> chaveSalva = repository.findById(dto.getId());
+            if (chaveSalva.isPresent() && chaveSalva.get().getDataHoraInativacao() != null) {
                 throw new ChaveJaExisteException(dto.getValorChave());
             }
         }

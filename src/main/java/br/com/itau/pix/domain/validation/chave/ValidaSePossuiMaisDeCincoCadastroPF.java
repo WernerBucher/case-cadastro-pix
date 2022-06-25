@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.IRequisicaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
@@ -25,19 +25,19 @@ public class ValidaSePossuiMaisDeCincoCadastroPF implements IValidadorNovaChave 
     }
 
     @Override
-    public void chain(IRequisicaoDTO requisicao) {
-        if (TipoPessoa.F.equals(requisicao.getTipoPessoa())) {
-            List<Chave> chavesDaConta = repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(requisicao.getNumeroAgencia(), requisicao.getNumeroConta(), requisicao.getTipoPessoa());
-            List<Chave> chavesIguais = chavesDaConta.stream().filter(chave -> chave.getValorChave().equals(requisicao.getValorChave())).collect(Collectors.toList());
-            if (ehNovaChave(requisicao) || chavesIguais.isEmpty()) {
+    public void chain(ChaveDTO dto) {
+        if (TipoPessoa.F.equals(dto.getTipoPessoa())) {
+            List<Chave> chavesDaConta = repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(dto.getNumeroAgencia(), dto.getNumeroConta(), dto.getTipoPessoa());
+            List<Chave> chavesIguais = chavesDaConta.stream().filter(chave -> chave.getValorChave().equals(dto.getValorChave())).collect(Collectors.toList());
+            if (ehNovaChave(dto) || chavesIguais.isEmpty()) {
                 if (chavesDaConta.size() == MAX_CHAVES_PF) {
-                    throw new PossuiLimiteMaximoDeChavesException(requisicao.getNumeroAgencia(), requisicao.getNumeroConta());
+                    throw new PossuiLimiteMaximoDeChavesException(dto.getNumeroAgencia(), dto.getNumeroConta());
                 }
             }
         }
     }
 
-    private boolean ehNovaChave(IRequisicaoDTO requisicao) {
-        return requisicao.getId() == null;
+    private boolean ehNovaChave(ChaveDTO dto) {
+        return dto.getId() == null;
     }
 }

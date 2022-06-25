@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.IRequisicaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.RegexException;
@@ -20,12 +20,12 @@ public class ValidaTipoCelular implements IValidadorNovaChave {
     }
 
     @Override
-    public void chain(IRequisicaoDTO requisicao) {
-        if (TipoChave.CELULAR.equals(requisicao.getTipoChave())) {
+    public void chain(ChaveDTO dto) {
+        if (TipoChave.CELULAR.equals(dto.getTipoChave())) {
             Pattern pattern = Pattern.compile(REGEX_CELULAR);
-            Matcher matcher = pattern.matcher(requisicao.getValorChave());
+            Matcher matcher = pattern.matcher(dto.getValorChave());
             if(!matcher.find()){
-                throw new RegexException(requisicao.getTipoChave().name());
+                throw new RegexException(dto.getTipoChave().name());
             }
         }
     }

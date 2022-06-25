@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.IRequisicaoDTO;
+import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.validation.CpfValidator;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
@@ -16,10 +16,10 @@ public class ValidaTipoCpf implements IValidadorNovaChave {
     }
 
     @Override
-    public void chain(IRequisicaoDTO requisicao) {
-        if (TipoChave.CPF.equals(requisicao.getTipoChave())) {
-            if (!CpfValidator.validaCpf(requisicao.getValorChave())) {
-                throw new RegexException(requisicao.getTipoChave().name());
+    public void chain(ChaveDTO dto) {
+        if (TipoChave.CPF.equals(dto.getTipoChave())) {
+            if (!CpfValidator.validaCpf(dto.getValorChave())) {
+                throw new RegexException(dto.getTipoChave().name());
             }
         }
     }
