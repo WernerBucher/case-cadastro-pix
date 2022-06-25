@@ -1,9 +1,9 @@
 package br.com.itau.pix.domain.validation;
 
-import br.com.itau.pix.domain.dto.RequestDTO;
+import br.com.itau.pix.domain.dto.IRequisicaoDTO;
 
 public interface IValidadorNovaChave {
 
     Integer getPrioridade();
-    void chain(RequestDTO requisicao);
+    void chain(IRequisicaoDTO requisicao);
 }

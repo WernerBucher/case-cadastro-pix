@@ -1,9 +1,10 @@
 package br.com.itau.pix.domain.model;
 
-import br.com.itau.pix.domain.dto.RequestDTO;
+import br.com.itau.pix.domain.dto.IRequisicaoDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
+import br.com.itau.pix.domain.enums.TipoConta;
 import br.com.itau.pix.domain.enums.TipoPessoa;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "chave")
-@Getter
+@Data
 @NoArgsConstructor
 public class Chave{
 
@@ -35,8 +36,9 @@ public class Chave{
     @Column(length = 77, nullable = false, unique = true)
     private String valorChave;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
-    private String tipoConta;
+    private TipoConta tipoConta;
 
     @Column(precision = 4, nullable = false)
     private Integer numeroAgencia;
@@ -62,15 +64,15 @@ public class Chave{
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraInativacao;
 
-    public Chave(RequestDTO dto) {
-        this.tipoChave = TipoChave.valueOf(dto.getTipoChave());
+    public Chave(IRequisicaoDTO dto) {
+        this.tipoChave = dto.getTipoChave();
         this.valorChave = dto.getValorChave();
         this.tipoConta = dto.getTipoConta();
         this.numeroAgencia = dto.getNumeroAgencia();
         this.numeroConta = dto.getNumeroConta();
         this.nomeCorrentista = dto.getNomeCorrentista();
         this.sobrenomeCorrentista = dto.getSobrenomeCorrentista();
-        this.tipoPessoa = TipoPessoa.valueOf(dto.getTipoPessoa());
+        this.tipoPessoa = dto.getTipoPessoa();
     }
 
 }

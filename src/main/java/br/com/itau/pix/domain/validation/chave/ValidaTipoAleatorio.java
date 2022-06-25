@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.RequestDTO;
+import br.com.itau.pix.domain.dto.IRequisicaoDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.RegexException;
@@ -21,12 +21,12 @@ public class ValidaTipoAleatorio implements IValidadorNovaChave {
     }
 
     @Override
-    public void chain(RequestDTO requisicao) {
-        if (TipoChave.ALEATORIO.equals(TipoChave.valueOf(requisicao.getTipoChave()))) {
+    public void chain(IRequisicaoDTO requisicao) {
+        if (TipoChave.ALEATORIO.equals(requisicao.getTipoChave())) {
             Pattern pattern = Pattern.compile(REGEX_ALEATORIO);
             Matcher matcher = pattern.matcher(requisicao.getValorChave());
             if(!matcher.find() || requisicao.getValorChave().length() > TAMANHO_MAX){
-                throw new RegexException(requisicao.getTipoChave());
+                throw new RegexException(requisicao.getTipoChave().name());
             }
         }
     }

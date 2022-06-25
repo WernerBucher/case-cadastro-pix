@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.RequestDTO;
+import br.com.itau.pix.domain.dto.IRequisicaoDTO;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
@@ -10,11 +10,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class ValidaSePossuiMaisDeCincoCadastroPF implements IValidadorNovaChave {
 
+    public static final int MAX_CHAVES_PF = 5;
     private final ChaveRepository repository;
 
     @Override
@@ -23,12 +25,19 @@ public class ValidaSePossuiMaisDeCincoCadastroPF implements IValidadorNovaChave 
     }
 
     @Override
-    public void chain(RequestDTO requisicao) {
-        if (TipoPessoa.F.equals(TipoPessoa.valueOf(requisicao.getTipoPessoa()))) {
-            List<Chave> chavesDaConta = repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(requisicao.getNumeroAgencia(), requisicao.getNumeroConta(), TipoPessoa.valueOf(requisicao.getTipoPessoa()));
-            if (chavesDaConta.size() == 5) {
-                throw new PossuiLimiteMaximoDeChavesException(requisicao.getNumeroAgencia(), requisicao.getNumeroConta());
+    public void chain(IRequisicaoDTO requisicao) {
+        if (TipoPessoa.F.equals(requisicao.getTipoPessoa())) {
+            List<Chave> chavesDaConta = repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(requisicao.getNumeroAgencia(), requisicao.getNumeroConta(), requisicao.getTipoPessoa());
+            List<Chave> chavesIguais = chavesDaConta.stream().filter(chave -> chave.getValorChave().equals(requisicao.getValorChave())).collect(Collectors.toList());
+            if (ehNovaChave(requisicao) || chavesIguais.isEmpty()) {
+                if (chavesDaConta.size() == MAX_CHAVES_PF) {
+                    throw new PossuiLimiteMaximoDeChavesException(requisicao.getNumeroAgencia(), requisicao.getNumeroConta());
+                }
             }
         }
+    }
+
+    private boolean ehNovaChave(IRequisicaoDTO requisicao) {
+        return requisicao.getId() == null;
     }
 }

@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.RequestDTO;
+import br.com.itau.pix.domain.dto.IRequisicaoDTO;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ValidaSePossuiMaisDeVinteCadastroPJ implements IValidadorNovaChave {
 
+    public static final int MAX_CHAVES_PJ = 20;
     private final ChaveRepository repository;
 
     @Override
@@ -23,10 +24,11 @@ public class ValidaSePossuiMaisDeVinteCadastroPJ implements IValidadorNovaChave 
     }
 
     @Override
-    public void chain(RequestDTO requisicao) {
-        if (TipoPessoa.J.equals(TipoPessoa.valueOf(requisicao.getTipoPessoa()))) {
+    public void chain(IRequisicaoDTO requisicao) {
+        if (TipoPessoa.J.equals(requisicao.getTipoPessoa())) {
+            //TODO: SE Edição (possui id) e chave da req contem na lista. Return
             List<Chave> chavesDaConta = repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(requisicao.getNumeroAgencia(), requisicao.getNumeroConta(), TipoPessoa.J);
-            if (chavesDaConta.size() == 20) {
+            if (chavesDaConta.size() == MAX_CHAVES_PJ) {
                 throw new PossuiLimiteMaximoDeChavesException(requisicao.getNumeroAgencia(), requisicao.getNumeroConta());
             }
         }

@@ -1,6 +1,7 @@
 package br.com.itau.pix.controller;
 
-import br.com.itau.pix.domain.dto.RequestDTO;
+import br.com.itau.pix.domain.dto.AlteracaoDTO;
+import br.com.itau.pix.domain.dto.InclusaoDTO;
 import br.com.itau.pix.domain.dto.ResponseDTO;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.service.ChaveService;
@@ -27,8 +28,22 @@ public class ChaveController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseDTO> inserir (@RequestBody @Valid RequestDTO requisicao){
-        Chave chave = chaveService.inserirNovaChave(requisicao);
+    public ResponseEntity<ResponseDTO> inserir(@RequestBody @Valid InclusaoDTO dto) {
+        Chave chave = chaveService.inserirChave(dto);
         return ResponseEntity.ok(ResponseDTO.getResponseId(chave));
     }
+
+    @PutMapping
+    public ResponseEntity<ResponseDTO> editar(@RequestBody @Valid AlteracaoDTO dto) {
+        Chave chave = chaveService.editarChave(dto);
+        return ResponseEntity.ok(ResponseDTO.getResponseId(chave));
+    }
+
+    @DeleteMapping(value = {"uuid"})
+    public ResponseEntity<ResponseDTO> deletar(@PathVariable(value = "uuid") String uuid) {
+        Chave chave = chaveService.deletarChave(uuid);
+        return ResponseEntity.ok(ResponseDTO.getResponseId(chave));
+    }
+
+
 }

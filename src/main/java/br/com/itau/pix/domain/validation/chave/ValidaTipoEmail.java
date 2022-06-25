@@ -1,6 +1,6 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.RequestDTO;
+import br.com.itau.pix.domain.dto.IRequisicaoDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.RegexException;
@@ -21,13 +21,22 @@ public class ValidaTipoEmail implements IValidadorNovaChave {
     }
 
     @Override
-    public void chain(RequestDTO requisicao) {
-        if (TipoChave.EMAIL.equals(TipoChave.valueOf(requisicao.getTipoChave()))) {
-            Pattern pattern = Pattern.compile(REGEX_EMAIL);
-            Matcher matcher = pattern.matcher(requisicao.getValorChave());
-            if(!matcher.find() || requisicao.getValorChave().length() > TAMANHO_MAX){
-                throw new RegexException(requisicao.getTipoChave());
+    public void chain(IRequisicaoDTO requisicao) {
+        if (TipoChave.EMAIL.equals(requisicao.getTipoChave())) {
+            String email = requisicao.getValorChave();
+            if(!ehEmailValido(email) || tamanhoMaiorQueLimite(email)){
+                throw new RegexException(requisicao.getTipoChave().name());
             }
         }
+    }
+
+    private boolean tamanhoMaiorQueLimite(String email) {
+        return email.length() > TAMANHO_MAX;
+    }
+
+    private boolean ehEmailValido(String email) {
+        Pattern pattern = Pattern.compile(REGEX_EMAIL);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.find();
     }
 }
