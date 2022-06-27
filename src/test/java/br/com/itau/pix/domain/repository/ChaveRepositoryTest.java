@@ -2,13 +2,14 @@ package br.com.itau.pix.domain.repository;
 
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
 import br.com.itau.pix.domain.model.Chave;
-import br.com.itau.pix.domain.predicate.ChavePredicateBuilder;
+import br.com.itau.pix.domain.specification.SpecificationChave;
 import br.com.itau.pix.util.MockUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,41 +45,55 @@ class ChaveRepositoryTest {
     }
 
     @Test
-    void deveContemRegistroNoBanco(){
+    void deveContemRegistroNoBanco() {
         List<Chave> all = repository.findAll();
         assertFalse(all.isEmpty());
     }
 
     @Test
-    void deveConsultarRegistroNoBancoPorId(){
+    void deveConsultarRegistroNoBancoPorId() {
         Optional<Chave> byId = repository.findById(chaveSalva.getId());
         assertTrue(byId.isPresent());
     }
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloNomeCorrentista() {
-        ChavePredicateBuilder builder = new ChavePredicateBuilder().with("nomeCorrentista", ":", "Correntista 1");
-        Iterable<Chave> results = repository.findAll(builder.build());
+        Iterable<Chave> results = repository.findAll(Specification.where(SpecificationChave.nome("Correntista 1")));
         assertThat(results, containsInAnyOrder(chaveSalva));
     }
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloNomeCorrentista_e_TipoChave() {
-        ChavePredicateBuilder builder = new ChavePredicateBuilder()
-                .with("nomeCorrentista", ":", "Correntista 1")
-                .with("tipoChave", ":", "CPF");
-        Iterable<Chave> results = repository.findAll(builder.build());
+        Iterable<Chave> results = repository.findAll(Specification
+                .where(SpecificationChave.nome("Correntista 1"))
+                .and(SpecificationChave.tipoChave("CPF")
+                ));
         assertThat(results, containsInAnyOrder(chaveSalva));
     }
 
     @Test
-    public void deveEncontrarChaveFiltrandoPelo_TipoChave() {
-        ChavePredicateBuilder builder = new ChavePredicateBuilder()
-                .with("tipoChave", ":", "CPF");
-        Iterable<Chave> results = repository.findAll(builder.build());
+    public void deveEncontrarChaveFiltrandoPeloTipoChave() {
+        Iterable<Chave> results = repository.findAll(Specification
+                .where(SpecificationChave.tipoChave("CPF")));
         assertThat(results, containsInAnyOrder(chaveSalva));
     }
 
+    @Test
+    public void deveEncontrarChaveFiltrandoPeloTipoChave_e_DesconsiderarNomeNulo() {
+        Iterable<Chave> results = repository.findAll(Specification
+                .where(SpecificationChave.nome(null))
+                .and(SpecificationChave.tipoChave("CPF")
+                ));
+        assertThat(results, containsInAnyOrder(chaveSalva));
+    }
 
+    @Test
+    public void deveEncontrarChaveFiltrandoPeloNome_e_DesconsiderarTipoChaveNulo() {
+        Iterable<Chave> results = repository.findAll(Specification
+                .where(SpecificationChave.nome("Correntista 1"))
+                .and(SpecificationChave.tipoChave(null)
+                ));
+        assertThat(results, containsInAnyOrder(chaveSalva));
+    }
 
 }

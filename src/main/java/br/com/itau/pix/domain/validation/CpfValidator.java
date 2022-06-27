@@ -3,7 +3,10 @@ package br.com.itau.pix.domain.validation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class CpfValidator {
+public final class CpfValidator {
+
+    private CpfValidator() {
+    }
 
     private static final int[] PESO_CPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
     private static final String REGEX_ONZE_DIGITOS_IGUALS = "^(?=([0-9]))\\1{11}$";

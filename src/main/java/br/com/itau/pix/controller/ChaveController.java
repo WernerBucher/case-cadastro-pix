@@ -12,9 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/chaves")
@@ -48,11 +48,10 @@ public class ChaveController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<RespostaDTO>> listaChavesComFiltro(@RequestParam(value = "filtro") String filtro){
-        Iterable<Chave> chaves = chaveService.listarComFiltro(filtro);
-        List<RespostaDTO> respostaList = new ArrayList<>();
-        chaves.forEach(chave -> respostaList.add(RespostaBuilder.builder(chave).comData()));
-        return ResponseEntity.ok(respostaList);
+    public ResponseEntity<List<RespostaDTO>> listaChavesComFiltro(@RequestParam(value = "nomeCorrentista", required = false) String nome, @RequestParam(value = "tipoChave", required = false) String tipoChave){
+        List<Chave> chaves = chaveService.listarComFiltro(nome, tipoChave);
+        List<RespostaDTO> resposta = chaves.stream().map(chave -> RespostaBuilder.builder(chave).comData()).collect(Collectors.toList());
+        return ResponseEntity.ok(resposta);
     }
 
 }

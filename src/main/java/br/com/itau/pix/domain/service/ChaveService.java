@@ -4,20 +4,18 @@ package br.com.itau.pix.domain.service;
 import br.com.itau.pix.domain.dto.entrada.AlteracaoDTO;
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
 import br.com.itau.pix.domain.model.Chave;
-import br.com.itau.pix.domain.predicate.ChavePredicateBuilder;
 import br.com.itau.pix.domain.repository.ChaveRepository;
+import br.com.itau.pix.domain.specification.SpecificationChave;
 import br.com.itau.pix.domain.validation.IValidadorAlteracaoChave;
 import br.com.itau.pix.domain.validation.IValidadorDeletarChave;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.ChaveNaoEncontradaException;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -50,33 +48,15 @@ public class ChaveService {
 
     public Chave listarPorId(UUID uuid) {
         Optional<Chave> chaveById = repository.findById(uuid);
-        if(chaveById.isPresent()){
+        if (chaveById.isPresent()) {
             return chaveById.get();
         }
         throw new ChaveNaoEncontradaException(uuid);
     }
 
-    public Iterable<Chave> listarComFiltro(String filtro) {
-        ChavePredicateBuilder builder = new ChavePredicateBuilder();
-
-        if (filtro != null) {
-            Pattern pattern = Pattern.compile("(\\w+?)(:)(\\w+?),");
-            Matcher matcher = pattern.matcher(filtro + ",");
-            while (matcher.find()) {
-                String campo = matcher.group(1);
-                String operacao = matcher.group(2);
-                String valor = matcher.group(3);
-                builder.with(campo, operacao, valor);
-            }
-        }
-        BooleanExpression exp = builder.build();
-        Iterable<Chave> all = repository.findAll(exp);
-        return all;
-    }
-
     private Chave buscarChaveNoBanco(UUID uuid) {
         Optional<Chave> chaveSalva = repository.findById(uuid);
-        if(chaveSalva.isPresent()){
+        if (chaveSalva.isPresent()) {
             return chaveSalva.get();
         }
         throw new ChaveNaoEncontradaException(uuid);
@@ -86,6 +66,11 @@ public class ChaveService {
         BeanUtils.copyProperties(requisicao, chaveOriginal, "id", "tipoChave", "valorChave");
     }
 
-
-
+    public List<Chave> listarComFiltro(String nome, String tipoChave) {
+        List<Chave> resultado = repository.findAll(Specification
+                .where(SpecificationChave.nome(nome))
+                .and(SpecificationChave.tipoChave(tipoChave)
+                ));
+        return resultado;
+    }
 }
