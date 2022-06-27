@@ -1,4 +1,4 @@
-package br.com.itau.pix.domain.dto;
+package br.com.itau.pix.domain.dto.entrada;
 
 import lombok.Data;
 

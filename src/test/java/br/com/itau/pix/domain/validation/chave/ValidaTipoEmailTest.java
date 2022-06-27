@@ -1,6 +1,7 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.ChaveDTO;
+import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
+import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.RegexException;
 import br.com.itau.pix.util.MockUtils;
@@ -20,15 +21,15 @@ class ValidaTipoEmailTest {
     public static final String LISTA_MOCK_VALIDO = "src/test/resources/insert_lista_EmailValido.json";
     public static final String LISTA_MOCK_INVALIDO = "src/test/resources/insert_lista_EmailInvalido.json";
     IValidadorNovaChave validador;
-    List<ChaveDTO> listaValida;
-    List<ChaveDTO> listaInvalida;
+    List<InclusaoDTO> listaValida;
+    List<InclusaoDTO> listaInvalida;
 
 
     @BeforeEach
     void setUp() throws IOException {
         validador = new ValidaTipoEmail();
-        listaValida = MockUtils.listaMockDeRequisicao(LISTA_MOCK_VALIDO);
-        listaInvalida = MockUtils.listaMockDeRequisicao(LISTA_MOCK_INVALIDO);
+        listaValida = MockUtils.carregarListaMockDeInclusao(LISTA_MOCK_VALIDO);
+        listaInvalida = MockUtils.carregarListaMockDeInclusao(LISTA_MOCK_INVALIDO);
     }
 
     @Test
@@ -39,7 +40,8 @@ class ValidaTipoEmailTest {
     @Test
     public void testarUmalistaDeRequisicoesValida() {
         listaValida.forEach(dto -> {
-            assertDoesNotThrow(() -> validador.chain(dto));
+            Chave chave = new Chave(dto);
+            assertDoesNotThrow(() -> validador.chain(chave));
         });
         ;
     }
@@ -47,7 +49,8 @@ class ValidaTipoEmailTest {
     @Test
     public void testarUmalistaDeRequisicoesInvalidas() {
         listaInvalida.forEach(dto -> {
-            assertThrows(RegexException.class, () -> validador.chain(dto));
+            Chave chave = new Chave(dto);
+            assertThrows(RegexException.class, () -> validador.chain(chave));
         });
         ;
     }

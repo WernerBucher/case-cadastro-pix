@@ -1,7 +1,8 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.enums.TipoChave;
+import br.com.itau.pix.domain.model.Chave;
+import br.com.itau.pix.domain.validation.IValidadorAlteracaoChave;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
 import br.com.itau.pix.exception.RegexException;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class ValidaTipoEmail implements IValidadorNovaChave {
+public class ValidaTipoEmail implements IValidadorNovaChave, IValidadorAlteracaoChave {
 
     public static final String REGEX_EMAIL = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
     public static final int TAMANHO_MAX = 77;
@@ -21,11 +22,11 @@ public class ValidaTipoEmail implements IValidadorNovaChave {
     }
 
     @Override
-    public void chain(ChaveDTO dto) {
-        if (TipoChave.EMAIL.equals(dto.getTipoChave())) {
-            String email = dto.getValorChave();
+    public void chain(Chave chave) {
+        if (TipoChave.EMAIL.equals(chave.getTipoChave())) {
+            String email = chave.getValorChave();
             if(!ehEmailValido(email) || tamanhoMaiorQueLimite(email)){
-                throw new RegexException(dto.getTipoChave().name());
+                throw new RegexException(chave.getTipoChave().name());
             }
         }
     }

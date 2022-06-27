@@ -9,3 +9,10 @@
 - SOLID
 - Documentação: http://localhost:8080/swagger-ui/index.html#/
 - Cobertura de testes: http://localhost:63342/pix/target/site/jacoco/index.html
+
+
+- ROADMAP
+  - Melhorar mensagens e criar arquivo de properties
+  - Implementar OpenTracing
+  - Implementar geração de metricas
+  - Implementar cache nas consultas

@@ -1,11 +1,9 @@
 package br.com.itau.pix.domain.dto.resposta;
 
 import br.com.itau.pix.domain.model.Chave;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RespostaBuilder {
 
     private final RespostaDTO resposta;

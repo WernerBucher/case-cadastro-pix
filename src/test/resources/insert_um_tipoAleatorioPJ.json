@@ -1,11 +1,10 @@
 {
-  "id": "19608f73-d0b2-4af1-a2f2-c19365a29ce9",
-  "tipoChave": "CPF",
-  "valorChave": "11111111111",
+  "tipoChave": "ALEATORIO",
+  "valorChave": "chave",
   "tipoConta": "CORRENTE",
   "numeroAgencia": 4340,
   "numeroConta": 1,
   "nomeCorrentista": "Correntista 1",
   "sobrenomeCorrentista": "Silva",
-  "tipoPessoa": "F"
+  "tipoPessoa": "J"
 }

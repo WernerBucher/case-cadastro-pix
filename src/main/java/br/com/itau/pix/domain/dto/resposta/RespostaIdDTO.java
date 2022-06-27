@@ -12,7 +12,6 @@ public class RespostaIdDTO {
 
     private UUID id;
 
-
     public static RespostaIdDTO getResponseId(Chave chave) {
         RespostaIdDTO dto = new RespostaIdDTO();
         dto.id = chave.getId();

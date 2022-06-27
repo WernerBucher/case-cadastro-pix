@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
  public abstract class CnpjValidator {
 
-    private static final String REGEX_QUATORZE_DIGITOS_IGUALS = "^(?=([0-9]))\\1{14}$";
+     private static final String REGEX_QUATORZE_DIGITOS_IGUALS = "^(?=([0-9]))\\1{14}$";
     private static final int[] PESO_CNPJ = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
 
     public static boolean validaCnpj(String cnpj) {

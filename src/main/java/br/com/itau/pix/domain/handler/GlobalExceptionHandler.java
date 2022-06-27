@@ -34,9 +34,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        int limitador = ex.getMessage().indexOf("nested");
-        String mensagemFormatada = ex.getMessage().substring(0, limitador-1);
-        return getRespostaPadrao(mensagemFormatada, HttpStatus.UNPROCESSABLE_ENTITY);
+        String mensagem = ex.getMessage();
+        if (mensagem!=null && mensagem.contains("nested")){
+            int limitador = ex.getMessage().indexOf("nested");
+            mensagem = mensagem.substring(0, limitador-1);
+        }
+        return getRespostaPadrao(mensagem, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(ChaveNaoEncontradaException.class)

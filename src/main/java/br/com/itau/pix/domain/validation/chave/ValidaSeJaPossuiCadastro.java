@@ -1,6 +1,5 @@
 package br.com.itau.pix.domain.validation.chave;
 
-import br.com.itau.pix.domain.dto.ChaveDTO;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
 import br.com.itau.pix.domain.validation.IValidadorNovaChave;
@@ -22,16 +21,11 @@ public class ValidaSeJaPossuiCadastro implements IValidadorNovaChave {
     }
 
     @Override
-    public void chain(ChaveDTO dto) {
-        if(ehNovaChave(dto)){
-            Optional<Chave> chaveSalva = repository.findByValorChave(dto.getValorChave());
-            if (chaveSalva.isPresent()) {
-                throw new ChaveJaExisteException(dto.getValorChave());
-            }
+    public void chain(Chave chave) {
+        Optional<Chave> chaveSalva = repository.findByValorChave(chave.getValorChave());
+        if (chaveSalva.isPresent()) {
+            throw new ChaveJaExisteException(chave.getValorChave());
         }
     }
 
-    private boolean ehNovaChave(ChaveDTO requisicao) {
-        return requisicao.getId() == null;
-    }
 }

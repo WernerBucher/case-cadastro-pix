@@ -12,9 +12,8 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.UUID;
 
-@Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
 public class RespostaDTO {
 
     private UUID id;
@@ -29,18 +28,23 @@ public class RespostaDTO {
 
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss", timezone = "America/Sao_Paulo")
     @ApiModelProperty(example = "25/06/2022 15:00:00")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Date dataHoraCadastro;
 
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss", timezone = "America/Sao_Paulo")
     @ApiModelProperty(example = "25/06/2022 15:00:00")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Date dataHoraInativacao;
 
     @JsonFormat(pattern = "dd/MM/yyyy", timezone = "America/Sao_Paulo")
     @ApiModelProperty(hidden = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Date dataCadastro;
 
     @JsonFormat(pattern = "dd/MM/yyyy", timezone = "America/Sao_Paulo")
     @ApiModelProperty(hidden = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Date dataInativacao;
+
 
 }

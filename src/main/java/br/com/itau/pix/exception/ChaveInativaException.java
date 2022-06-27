@@ -1,8 +1,10 @@
 package br.com.itau.pix.exception;
 
+import java.util.UUID;
+
 public class ChaveInativaException extends RuntimeException {
 
-    public ChaveInativaException(String valorChave) {
-        super(String.format("A chave < %s > não pose ser alterada, pois a mesma está inativa!", valorChave));
+    public ChaveInativaException(UUID uuid) {
+        super(String.format("A chave com ID < %s > já foi Desativada!", uuid));
     }
 }
