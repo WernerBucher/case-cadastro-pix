@@ -47,7 +47,7 @@ class ChaveServiceListarTest {
         UUID uuid = UUID.fromString("19608f73-d0b2-4af1-a2f2-c19365a29ce9");
         when(repository.findById(uuid)).thenReturn(Optional.of(chaveNoBanco));
         Chave chave = service.listarPorId(uuid);
-        Assertions.assertThat(chave).isNotNull();
+        Assertions.assertThat(chave).isNull();
         assertEquals(TipoConta.CORRENTE, chave.getTipoConta());
     }
 
