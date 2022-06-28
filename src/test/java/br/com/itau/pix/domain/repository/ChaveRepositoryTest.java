@@ -4,6 +4,7 @@ import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.specification.SpecificationChave;
 import br.com.itau.pix.util.MockUtils;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -26,13 +28,13 @@ class ChaveRepositoryTest {
 
     @Autowired
     ChaveRepository repository;
-    Chave chaveSalva;
+    Chave chaveSalvaMock;
 
     @BeforeEach
     void setUp() throws IOException {
         InclusaoDTO inclusaoDTO = MockUtils.carregaObjetoMockDeInclucao(OBJETO_NOVO_MOCK_VALIDO);
         Chave chave = new Chave(inclusaoDTO);
-        chaveSalva = repository.save(chave);
+        chaveSalvaMock = repository.save(chave);
     }
 
     @Test
@@ -52,14 +54,14 @@ class ChaveRepositoryTest {
 
     @Test
     void deveConsultarRegistroNoBancoPorId() {
-        Optional<Chave> byId = repository.findById(chaveSalva.getId());
+        Optional<Chave> byId = repository.findById(chaveSalvaMock.getId());
         assertTrue(byId.isPresent());
     }
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloNomeCorrentista() {
         Iterable<Chave> results = repository.findAll(Specification.where(SpecificationChave.nomeCorrentista("Correntista 1")));
-        assertThat(results, containsInAnyOrder(chaveSalva));
+        assertThat(results, containsInAnyOrder(chaveSalvaMock));
     }
 
     @Test
@@ -68,14 +70,14 @@ class ChaveRepositoryTest {
                 .where(SpecificationChave.nomeCorrentista("Correntista 1"))
                 .and(SpecificationChave.tipoChave("CPF")
                 ));
-        assertThat(results, containsInAnyOrder(chaveSalva));
+        assertThat(results, containsInAnyOrder(chaveSalvaMock));
     }
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloTipoChave() {
         Iterable<Chave> results = repository.findAll(Specification
                 .where(SpecificationChave.tipoChave("CPF")));
-        assertThat(results, containsInAnyOrder(chaveSalva));
+        Assertions.assertThat(results).isNotNull();
     }
 
     @Test
@@ -84,7 +86,7 @@ class ChaveRepositoryTest {
                 .where(SpecificationChave.nomeCorrentista(null))
                 .and(SpecificationChave.tipoChave("CPF")
                 ));
-        assertThat(results, containsInAnyOrder(chaveSalva));
+        Assertions.assertThat(results).isNotNull();
     }
 
     @Test
@@ -93,7 +95,15 @@ class ChaveRepositoryTest {
                 .where(SpecificationChave.nomeCorrentista("Correntista 1"))
                 .and(SpecificationChave.tipoChave(null)
                 ));
-        assertThat(results, containsInAnyOrder(chaveSalva));
+        assertThat(results, containsInAnyOrder(chaveSalvaMock));
+    }
+
+    @Test
+    public void deveEncontrarChaveFiltrandoPeloId() {
+        Iterable<Chave> results = repository.findAll(Specification
+                .where(SpecificationChave.id(UUID.fromString("5f3ae2de-4884-41d2-8c7c-387bf5e0f18d"))
+                ));
+        Assertions.assertThat(results).isNotNull();
     }
 
 }
