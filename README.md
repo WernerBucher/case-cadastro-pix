@@ -15,6 +15,8 @@
 
 
 - ROADMAP de Melhorias
+  - Ajustar tipos de respostas no Swagger (Atualmente default)
+  - Criar profiles para ambiente Dev, Homol e Prod
   - Implementar OpenTracing (Jaeger)
   - Implementar geração de metricas (Prometheus)
   - Implementar cache nas consultas (MemCache ou Redis)
