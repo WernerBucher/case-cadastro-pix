@@ -1,10 +1,10 @@
-package br.com.itau.pix.domain.validation.chave;
+package br.com.itau.pix.domain.validation.regras;
 
+import br.com.itau.pix.domain.exception.ChaveInativaException;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
 import br.com.itau.pix.domain.validation.IValidadorChaveAlterar;
 import br.com.itau.pix.domain.validation.IValidadorChaveDeletar;
-import br.com.itau.pix.exception.ChaveInativaException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

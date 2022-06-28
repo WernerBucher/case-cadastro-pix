@@ -2,7 +2,7 @@ package br.com.itau.pix.domain.handler;
 
 import br.com.itau.pix.domain.dto.ErroDTO;
 import br.com.itau.pix.domain.dto.RespostaErroDTO;
-import br.com.itau.pix.exception.ChaveNaoEncontradaException;
+import br.com.itau.pix.domain.exception.ChaveNaoEncontradaException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

@@ -2,7 +2,9 @@ package br.com.itau.pix.domain.repository;
 
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
 import br.com.itau.pix.domain.model.Chave;
-import br.com.itau.pix.domain.specification.SpecificationChave;
+import br.com.itau.pix.domain.specification.SpecificationChaveId;
+import br.com.itau.pix.domain.specification.SpecificationChaveNome;
+import br.com.itau.pix.domain.specification.SpecificationChaveTipoChave;
 import br.com.itau.pix.util.MockUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,15 +62,15 @@ class ChaveRepositoryTest {
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloNomeCorrentista() {
-        Iterable<Chave> results = repository.findAll(Specification.where(SpecificationChave.nomeCorrentista("Correntista 1")));
+        Iterable<Chave> results = repository.findAll(Specification.where(SpecificationChaveNome.nomeCorrentista("Correntista 1")));
         assertThat(results, containsInAnyOrder(chaveSalvaMock));
     }
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloNomeCorrentista_e_TipoChave() {
         Iterable<Chave> results = repository.findAll(Specification
-                .where(SpecificationChave.nomeCorrentista("Correntista 1"))
-                .and(SpecificationChave.tipoChave("CPF")
+                .where(SpecificationChaveNome.nomeCorrentista("Correntista 1"))
+                .and(SpecificationChaveTipoChave.tipoChave("CPF")
                 ));
         assertThat(results, containsInAnyOrder(chaveSalvaMock));
     }
@@ -76,15 +78,15 @@ class ChaveRepositoryTest {
     @Test
     public void deveEncontrarChaveFiltrandoPeloTipoChave() {
         Iterable<Chave> results = repository.findAll(Specification
-                .where(SpecificationChave.tipoChave("CPF")));
+                .where(SpecificationChaveTipoChave.tipoChave("CPF")));
         Assertions.assertThat(results).isNotNull();
     }
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloTipoChave_e_DesconsiderarNomeNulo() {
         Iterable<Chave> results = repository.findAll(Specification
-                .where(SpecificationChave.nomeCorrentista(null))
-                .and(SpecificationChave.tipoChave("CPF")
+                .where(SpecificationChaveNome.nomeCorrentista(null))
+                .and(SpecificationChaveTipoChave.tipoChave("CPF")
                 ));
         Assertions.assertThat(results).isNotNull();
     }
@@ -92,8 +94,8 @@ class ChaveRepositoryTest {
     @Test
     public void deveEncontrarChaveFiltrandoPeloNome_e_DesconsiderarTipoChaveNulo() {
         Iterable<Chave> results = repository.findAll(Specification
-                .where(SpecificationChave.nomeCorrentista("Correntista 1"))
-                .and(SpecificationChave.tipoChave(null)
+                .where(SpecificationChaveNome.nomeCorrentista("Correntista 1"))
+                .and(SpecificationChaveTipoChave.tipoChave(null)
                 ));
         assertThat(results, containsInAnyOrder(chaveSalvaMock));
     }
@@ -101,7 +103,7 @@ class ChaveRepositoryTest {
     @Test
     public void deveEncontrarChaveFiltrandoPeloId() {
         Iterable<Chave> results = repository.findAll(Specification
-                .where(SpecificationChave.id(UUID.fromString("5f3ae2de-4884-41d2-8c7c-387bf5e0f18d"))
+                .where(SpecificationChaveId.id(UUID.fromString("5f3ae2de-4884-41d2-8c7c-387bf5e0f18d"))
                 ));
         Assertions.assertThat(results).isNotNull();
     }

@@ -1,10 +1,10 @@
-package br.com.itau.pix.domain.validation.chave;
+package br.com.itau.pix.domain.validation.regras;
 
 import br.com.itau.pix.domain.enums.TipoChave;
+import br.com.itau.pix.domain.exception.RegexException;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.validation.IValidadorChaveAlterar;
 import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
-import br.com.itau.pix.exception.RegexException;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;

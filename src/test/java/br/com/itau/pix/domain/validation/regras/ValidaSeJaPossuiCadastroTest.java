@@ -1,11 +1,11 @@
-package br.com.itau.pix.domain.validation.chave;
+package br.com.itau.pix.domain.validation.regras;
 
 import br.com.itau.pix.domain.dto.entrada.AlteracaoDTO;
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
+import br.com.itau.pix.domain.exception.ChaveJaExisteException;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
 import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
-import br.com.itau.pix.exception.ChaveJaExisteException;
 import br.com.itau.pix.util.MockUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
-package br.com.itau.pix.domain.validation.chave;
+package br.com.itau.pix.domain.validation.regras;
 
 import br.com.itau.pix.domain.dto.ConsultaDTO;
+import br.com.itau.pix.domain.exception.ChaveCombinadaException;
 import br.com.itau.pix.domain.validation.IValidadorConsulta;
-import br.com.itau.pix.exception.ChaveCombinadaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

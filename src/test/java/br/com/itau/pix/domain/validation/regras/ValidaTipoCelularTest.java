@@ -1,9 +1,9 @@
-package br.com.itau.pix.domain.validation.chave;
+package br.com.itau.pix.domain.validation.regras;
 
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
+import br.com.itau.pix.domain.exception.RegexException;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
-import br.com.itau.pix.exception.RegexException;
 import br.com.itau.pix.util.MockUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,18 +13,18 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ValidaTipoAleatorioTest {
+class ValidaTipoCelularTest {
 
     public static final int PRIORIDADE = 40;
-    public static final String LISTA_MOCK_VALIDO = "src/test/resources/insert_lista_AleatorioValido.json";
-    public static final String LISTA_MOCK_INVALIDO = "src/test/resources/insert_lista_AleatorioInvalido.json";
+    public static final String LISTA_MOCK_VALIDO = "src/test/resources/insert_lista_CelularValido.json";
+    public static final String LISTA_MOCK_INVALIDO = "src/test/resources/insert_lista_CelularInvalido.json";
     IValidadorChaveInserir validador;
     List<InclusaoDTO> listaValida;
     List<InclusaoDTO> listaInvalida;
 
     @BeforeEach
     void setUp() throws IOException {
-        validador = new ValidaTipoAleatorio();
+        validador = new ValidaTipoCelular();
         listaValida = MockUtils.carregarListaMockDeInclusao(LISTA_MOCK_VALIDO);
         listaInvalida = MockUtils.carregarListaMockDeInclusao(LISTA_MOCK_INVALIDO);
     }

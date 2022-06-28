@@ -1,4 +1,4 @@
-package br.com.itau.pix.exception;
+package br.com.itau.pix.domain.exception;
 
 public class ChaveJaExisteException extends RuntimeException {
 

@@ -1,9 +1,9 @@
-package br.com.itau.pix.domain.validation.chave;
+package br.com.itau.pix.domain.validation.regras;
 
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
+import br.com.itau.pix.domain.exception.RegexException;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
-import br.com.itau.pix.exception.RegexException;
 import br.com.itau.pix.util.MockUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,42 +13,47 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ValidaTipoCelularTest {
+
+class ValidaTipoEmailTest {
+
 
     public static final int PRIORIDADE = 40;
-    public static final String LISTA_MOCK_VALIDO = "src/test/resources/insert_lista_CelularValido.json";
-    public static final String LISTA_MOCK_INVALIDO = "src/test/resources/insert_lista_CelularInvalido.json";
+    public static final String LISTA_MOCK_VALIDO = "src/test/resources/insert_lista_EmailValido.json";
+    public static final String LISTA_MOCK_INVALIDO = "src/test/resources/insert_lista_EmailInvalido.json";
     IValidadorChaveInserir validador;
     List<InclusaoDTO> listaValida;
     List<InclusaoDTO> listaInvalida;
 
+
     @BeforeEach
     void setUp() throws IOException {
-        validador = new ValidaTipoCelular();
+        validador = new ValidaTipoEmail();
         listaValida = MockUtils.carregarListaMockDeInclusao(LISTA_MOCK_VALIDO);
         listaInvalida = MockUtils.carregarListaMockDeInclusao(LISTA_MOCK_INVALIDO);
     }
 
     @Test
-    void testarPrioridadeDoValidador() {
+    public void testarPrioridadeDoValidador() {
         assertEquals(PRIORIDADE, validador.getPrioridade());
     }
 
     @Test
-    void testarUmalistaDeRequisicoesValida() {
+    public void testarUmalistaDeRequisicoesValida() {
         listaValida.forEach(dto -> {
             Chave chave = new Chave(dto);
             assertDoesNotThrow(() -> validador.chain(chave));
         });
-        assertFalse(listaValida.isEmpty());
+        ;
     }
 
     @Test
-    void testarUmalistaDeRequisicoesInvalidas() {
+    public void testarUmalistaDeRequisicoesInvalidas() {
         listaInvalida.forEach(dto -> {
             Chave chave = new Chave(dto);
             assertThrows(RegexException.class, () -> validador.chain(chave));
         });
-        assertFalse(listaInvalida.isEmpty());
+        ;
     }
+
+
 }

@@ -1,11 +1,11 @@
-package br.com.itau.pix.domain.validation.chave;
+package br.com.itau.pix.domain.validation.regras;
 
 import br.com.itau.pix.domain.dto.entrada.AlteracaoDTO;
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
+import br.com.itau.pix.domain.exception.PossuiLimiteMaximoDeChavesException;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
 import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
-import br.com.itau.pix.exception.PossuiLimiteMaximoDeChavesException;
 import br.com.itau.pix.util.MockUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,11 +23,11 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ValidaSePossuiMaisDeVinteCadastroPJTest {
-    public static final int PRIORIDADE = 30;
-    public static final String OBJETO_NOVO_MOCK_VALIDO = "src/test/resources/insert_um_tipoAleatorioPJ.json";
-    public static final String OBJETO_EXISTENTE_MOCK_VALIDO = "src/test/resources/update_um_tipoCnpj.json";
-    public static final String OBJETO_PF_NOVO_MOCK_VALIDO = "src/test/resources/insert_um_tipoCpf.json";
+class ValidaSePossuiMaisDeCincoCadastroPFTest {
+    public static final int PRIORIDADE = 20;
+    public static final String OBJETO_NOVO_MOCK_VALIDO = "src/test/resources/insert_um_tipoAleatorioPF.json";
+    public static final String OBJETO_EXISTENTE_MOCK_VALIDO = "src/test/resources/update_um_tipoCpf.json";
+    public static final String OBJETO_PJ_NOVO_MOCK_VALIDO = "src/test/resources/insert_um_tipoCnpj.json";
 
     @Mock
     ChaveRepository repository;
@@ -39,7 +39,7 @@ class ValidaSePossuiMaisDeVinteCadastroPJTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        validador = new ValidaSePossuiMaisDeVinteCadastroPJ(repository);
+        validador = new ValidaSePossuiMaisDeCincoCadastroPF(repository);
         dtoInsert = MockUtils.carregaObjetoMockDeInclucao(OBJETO_NOVO_MOCK_VALIDO);
         dtoUpdate = MockUtils.carregarObjetoMockDeAlteracao(OBJETO_EXISTENTE_MOCK_VALIDO);
     }
@@ -50,8 +50,8 @@ class ValidaSePossuiMaisDeVinteCadastroPJTest {
     }
 
     @Test
-    void devePassarSeNaoForPJ() throws IOException {
-        InclusaoDTO inclusaoDTO = MockUtils.carregaObjetoMockDeInclucao(OBJETO_PF_NOVO_MOCK_VALIDO);
+    void devePassarSeNaoForPF() throws IOException {
+        InclusaoDTO inclusaoDTO = MockUtils.carregaObjetoMockDeInclucao(OBJETO_PJ_NOVO_MOCK_VALIDO);
         Chave novaChave = new Chave(inclusaoDTO);
         assertDoesNotThrow(() -> validador.chain(novaChave));
     }
@@ -66,9 +66,9 @@ class ValidaSePossuiMaisDeVinteCadastroPJTest {
     }
 
     @Test
-    void devePassarSeNovaChave_e_EncontradaDezenoveVinculadaAhConta() throws IOException {
+    void devePassarSeNovaChave_e_EncontradaQuatroChavesVinculadaAhConta() throws IOException {
         List < Chave > chaveList = new ArrayList<>();
-        gerarListaMockDeChaves(chaveList, 19);
+        gerarListaMockDeChaves(chaveList, 4);
 
         Chave novaChave = new Chave(dtoInsert);
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
@@ -76,14 +76,16 @@ class ValidaSePossuiMaisDeVinteCadastroPJTest {
     }
 
     @Test
-    void deveGerarExceptionSeNovaChave_e_EncontradaVinteChavesVinculadasAhConta() throws IOException {
+    void deveGerarExceptionSeNovaChave_e_EncontradaCincoChavesVinculadasAhConta() throws IOException {
         List < Chave > chaveList = new ArrayList<>();
-        gerarListaMockDeChaves(chaveList, 20);
+        gerarListaMockDeChaves(chaveList, 5);
 
         Chave novaChave = new Chave(dtoInsert);
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
         assertThrows(PossuiLimiteMaximoDeChavesException.class, () -> validador.chain(novaChave));
     }
+
+
 
     @Test
     void devePassarSeEdicao_e_ValorChaveContemNaLista() {
@@ -100,9 +102,9 @@ class ValidaSePossuiMaisDeVinteCadastroPJTest {
     }
 
     @Test
-    void devePassarSeEdicao_e_ValorChaveNaoContemNaLista_e_NaoAtingiuLimite() throws IOException {
+    void devePassarSeEdicao_e_ValorChaveNaoContemNaListaMasNaoAtingiuLimite() throws IOException {
         List<Chave> chaveList = new ArrayList<>();
-        gerarListaMockDeChaves(chaveList, 19);
+        gerarListaMockDeChaves(chaveList, 4);
 
         Chave chaveEdicao = new Chave(dtoUpdate);
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
@@ -110,9 +112,9 @@ class ValidaSePossuiMaisDeVinteCadastroPJTest {
     }
 
     @Test
-    void deveGerarExceptionSeEdicao_e_ValorChaveNaoContemNaLista_e_AtingiuLimite() throws IOException {
+    void deveGerarExceptionSeEdicao_e_ValorChaveNaoContemNaListaMasAtingiuLimite() throws IOException {
         List<Chave> chaveList = new ArrayList<>();
-        gerarListaMockDeChaves(chaveList, 20);
+        gerarListaMockDeChaves(chaveList, 5);
 
         Chave chaveEdicao = new Chave(dtoUpdate);
         when(repository.findAllByNumeroAgenciaAndNumeroContaAndTipoPessoa(anyInt(), anyInt(), any())).thenReturn(chaveList);
@@ -120,13 +122,13 @@ class ValidaSePossuiMaisDeVinteCadastroPJTest {
     }
 
     @Test
-    void devePassarSeEdicao_e_ValorChaveContemNaLista_e_AtingiuLimite() throws IOException {
+    void devePassarSeEdicao_e_ValorChaveContemNaListaMasAtingiuLimite() throws IOException {
         Chave chaveExistenteNoBanco = new Chave(dtoUpdate);
         chaveExistenteNoBanco.setValorChave("111");
 
         List<Chave> chaveList = new ArrayList<>();
         chaveList.add(new Chave(dtoInsert));
-        gerarListaMockDeChaves(chaveList, 18);
+        gerarListaMockDeChaves(chaveList, 3);
         chaveList.add(chaveExistenteNoBanco);
 
         Chave chaveEdicao = new Chave(dtoUpdate);
