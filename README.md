@@ -1,6 +1,6 @@
 # case-cadastro-pix
 
-- Projeto Java8 + SpringBoot
+- Projeto Maven com Java8 e SpringBoot
 - Banco de dados H2, salvando em disco
 - Flyway para controle e versionamento de scripts BD
   - Constraints para garantir integridade do BD, conforme regras de negócios
