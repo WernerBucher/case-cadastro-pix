@@ -6,21 +6,13 @@ import java.util.Date;
 
 public class RespostaBuilder {
 
-    private final RespostaDTO resposta;
+    private final Chave chave;
     private final Date dataHoraCadastro;
     private final Date dataHoraInativacao;
 
+
     public RespostaBuilder(Chave chave) {
-        this.resposta = new RespostaDTO();
-        this.resposta.setId(chave.getId());
-        this.resposta.setTipoChave(chave.getTipoChave());
-        this.resposta.setValorChave(chave.getValorChave());
-        this.resposta.setTipoConta(chave.getTipoConta());
-        this.resposta.setNumeroAgencia(chave.getNumeroAgencia());
-        this.resposta.setNumeroConta(chave.getNumeroConta());
-        this.resposta.setNomeCorrentista(chave.getNomeCorrentista());
-        this.resposta.setSobrenomeCorrentista(chave.getSobrenomeCorrentista());
-        this.resposta.setTipoPessoa(chave.getTipoPessoa());
+        this.chave = chave;
         this.dataHoraCadastro = chave.getDataHoraCadastro();
         this.dataHoraInativacao = chave.getDataHoraInativacao();
     }
@@ -29,16 +21,40 @@ public class RespostaBuilder {
         return new RespostaBuilder(chave);
     }
 
-    public RespostaDTO comDataHora() {
-        this.resposta.setDataHoraCadastro(dataHoraCadastro);
-        this.resposta.setDataHoraInativacao(dataHoraInativacao);
-        return resposta;
+    public RespostaComDataHoraDTO completaComDataHora() {
+        RespostaComDataHoraDTO comDataHoraDTO = new RespostaComDataHoraDTO();
+        comDataHoraDTO.setId(chave.getId());
+        comDataHoraDTO.setTipoChave(chave.getTipoChave());
+        comDataHoraDTO.setValorChave(chave.getValorChave());
+        comDataHoraDTO.setTipoConta(chave.getTipoConta());
+        comDataHoraDTO.setNumeroAgencia(chave.getNumeroAgencia());
+        comDataHoraDTO.setNumeroConta(chave.getNumeroConta());
+        comDataHoraDTO.setNomeCorrentista(chave.getNomeCorrentista());
+        comDataHoraDTO.setSobrenomeCorrentista(chave.getSobrenomeCorrentista());
+        comDataHoraDTO.setTipoPessoa(chave.getTipoPessoa());
+        comDataHoraDTO.setDataHoraCadastro(dataHoraCadastro);
+        comDataHoraDTO.setDataHoraInativacao(dataHoraInativacao);
+        return comDataHoraDTO;
     }
 
-    public RespostaDTO comData() {
-        this.resposta.setDataCadastro(dataHoraCadastro);
-        this.resposta.setDataInativacao(dataHoraInativacao);
-        return resposta;
+    public RespostaComDataDTO completaComData() {
+        RespostaComDataDTO comDataDTO = new RespostaComDataDTO();
+        comDataDTO.setId(chave.getId());
+        comDataDTO.setTipoChave(chave.getTipoChave());
+        comDataDTO.setValorChave(chave.getValorChave());
+        comDataDTO.setTipoConta(chave.getTipoConta());
+        comDataDTO.setNumeroAgencia(chave.getNumeroAgencia());
+        comDataDTO.setNumeroConta(chave.getNumeroConta());
+        comDataDTO.setNomeCorrentista(chave.getNomeCorrentista());
+        comDataDTO.setSobrenomeCorrentista(chave.getSobrenomeCorrentista());
+        comDataDTO.setTipoPessoa(chave.getTipoPessoa());
+        comDataDTO.setDataCadastro(dataHoraCadastro);
+        comDataDTO.setDataInativacao(dataHoraInativacao);
+        return comDataDTO;
+    }
+
+    public RespostaIdDTO somenteId() {
+        return new RespostaIdDTO(chave.getId());
     }
 
 }

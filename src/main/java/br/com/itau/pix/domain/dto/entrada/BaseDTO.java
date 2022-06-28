@@ -9,27 +9,27 @@ import javax.validation.constraints.*;
 @Data
 public abstract class BaseDTO {
 
-    @NotNull
+    @NotNull(message = "{tipoConta.notnull}")
     private TipoConta tipoConta;
 
-    @NotNull
-    @Min(1)
-    @Max(9999)
+    @NotNull(message = "{numeroAgencia.notnull}")
+    @Min(value = 1, message = "{numeroAgencia.min}" )
+    @Max(value = 9999, message = "{numeroAgencia.max}" )
     private Integer numeroAgencia;
 
-    @NotNull
-    @Min(1)
-    @Max(99999999)
+    @NotNull(message = "{numeroConta.notnull}")
+    @Min(value = 1, message = "{numeroConta.min}" )
+    @Max(value = 99999999, message = "{numeroConta.max}" )
     private Integer numeroConta;
 
-    @NotBlank
-    @Size(max = 30)
+    @NotBlank(message = "{nomeCorrentista.notblank}")
+    @Size(min = 1, max = 30, message = "{nomeCorrentista.size}")
     private String nomeCorrentista;
 
-    @Size(max = 45)
+    @Size(max = 45, message = "{sobrenomeCorrentista.size}")
     private String sobrenomeCorrentista;
 
-    @NotNull
+    @NotNull(message = "{tipoPessoa.notnull}")
     private TipoPessoa tipoPessoa;
 
 }

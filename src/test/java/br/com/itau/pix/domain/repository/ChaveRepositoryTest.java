@@ -58,14 +58,14 @@ class ChaveRepositoryTest {
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloNomeCorrentista() {
-        Iterable<Chave> results = repository.findAll(Specification.where(SpecificationChave.nome("Correntista 1")));
+        Iterable<Chave> results = repository.findAll(Specification.where(SpecificationChave.nomeCorrentista("Correntista 1")));
         assertThat(results, containsInAnyOrder(chaveSalva));
     }
 
     @Test
     public void deveEncontrarChaveFiltrandoPeloNomeCorrentista_e_TipoChave() {
         Iterable<Chave> results = repository.findAll(Specification
-                .where(SpecificationChave.nome("Correntista 1"))
+                .where(SpecificationChave.nomeCorrentista("Correntista 1"))
                 .and(SpecificationChave.tipoChave("CPF")
                 ));
         assertThat(results, containsInAnyOrder(chaveSalva));
@@ -81,7 +81,7 @@ class ChaveRepositoryTest {
     @Test
     public void deveEncontrarChaveFiltrandoPeloTipoChave_e_DesconsiderarNomeNulo() {
         Iterable<Chave> results = repository.findAll(Specification
-                .where(SpecificationChave.nome(null))
+                .where(SpecificationChave.nomeCorrentista(null))
                 .and(SpecificationChave.tipoChave("CPF")
                 ));
         assertThat(results, containsInAnyOrder(chaveSalva));
@@ -90,7 +90,7 @@ class ChaveRepositoryTest {
     @Test
     public void deveEncontrarChaveFiltrandoPeloNome_e_DesconsiderarTipoChaveNulo() {
         Iterable<Chave> results = repository.findAll(Specification
-                .where(SpecificationChave.nome("Correntista 1"))
+                .where(SpecificationChave.nomeCorrentista("Correntista 1"))
                 .and(SpecificationChave.tipoChave(null)
                 ));
         assertThat(results, containsInAnyOrder(chaveSalva));

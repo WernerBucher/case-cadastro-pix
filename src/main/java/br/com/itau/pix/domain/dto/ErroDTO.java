@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ErrorObjectDTO implements Serializable {
+public class ErroDTO implements Serializable {
 
     private final String mensagem;
     private final String campo;

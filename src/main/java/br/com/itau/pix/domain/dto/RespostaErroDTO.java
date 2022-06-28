@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Data
-public class ErrorResponseDTO implements Serializable {
+public class RespostaErroDTO implements Serializable {
 
-    private final List<ErrorObjectDTO> errors;
+    private final List<ErroDTO> errors;
 }

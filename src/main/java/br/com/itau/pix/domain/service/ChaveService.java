@@ -54,6 +54,13 @@ public class ChaveService {
         throw new ChaveNaoEncontradaException(uuid);
     }
 
+    public List<Chave> listarComFiltro(String nome, String tipoChave) {
+        List<Chave> resultado = repository.findAll(Specification
+                .where(SpecificationChave.nomeCorrentista(nome)).and(SpecificationChave.tipoChave(tipoChave)
+                ));
+        return resultado;
+    }
+
     private Chave buscarChaveNoBanco(UUID uuid) {
         Optional<Chave> chaveSalva = repository.findById(uuid);
         if (chaveSalva.isPresent()) {
@@ -64,13 +71,5 @@ public class ChaveService {
 
     private void atualizaValoresChaveOriginal(AlteracaoDTO requisicao, Chave chaveOriginal) {
         BeanUtils.copyProperties(requisicao, chaveOriginal, "id", "tipoChave", "valorChave");
-    }
-
-    public List<Chave> listarComFiltro(String nome, String tipoChave) {
-        List<Chave> resultado = repository.findAll(Specification
-                .where(SpecificationChave.nome(nome))
-                .and(SpecificationChave.tipoChave(tipoChave)
-                ));
-        return resultado;
     }
 }

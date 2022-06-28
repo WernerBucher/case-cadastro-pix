@@ -48,14 +48,7 @@ class ChaveServiceInserirTest {
 
     @Test
     void deveInserirChaveComSucesso() {
-        InclusaoDTO dto = new InclusaoDTO();
-        dto.setTipoChave(TipoChave.ALEATORIO);
-        dto.setValorChave("Chave1");
-        dto.setTipoConta(TipoConta.CORRENTE);
-        dto.setNumeroAgencia(1);
-        dto.setNumeroConta(1);
-        dto.setNomeCorrentista("Werner");
-        dto.setTipoPessoa(TipoPessoa.F);
+        InclusaoDTO dto = getInclusaoDTO("Chave1");
 
         given(repository.save(any())).willAnswer(invocation -> invocation.getArgument(0));
 
@@ -67,14 +60,7 @@ class ChaveServiceInserirTest {
 
     @Test
     void deveGerarExceptionAoInserirChave_NaoPasouNasRegrasDeNegocio() {
-        InclusaoDTO dto = new InclusaoDTO();
-        dto.setTipoChave(TipoChave.ALEATORIO);
-        dto.setValorChave("Chave1");
-        dto.setTipoConta(TipoConta.CORRENTE);
-        dto.setNumeroAgencia(1);
-        dto.setNumeroConta(1);
-        dto.setNomeCorrentista("Werner");
-        dto.setTipoPessoa(TipoPessoa.F);
+        InclusaoDTO dto = getInclusaoDTO("Chave1");
 
         when(validadorNovaChave.stream()).thenThrow(ChaveJaExisteException.class);
         assertThrows(ChaveJaExisteException.class, () -> service.inserirChave(dto));
@@ -83,14 +69,7 @@ class ChaveServiceInserirTest {
 
     @Test
     void deveGerarExceptionAoInserirChave_DeAcordoComPrioridade() {
-        InclusaoDTO dto = new InclusaoDTO();
-        dto.setTipoChave(TipoChave.ALEATORIO);
-        dto.setValorChave("Chave1");
-        dto.setTipoConta(TipoConta.CORRENTE);
-        dto.setNumeroAgencia(1);
-        dto.setNumeroConta(1);
-        dto.setNomeCorrentista("Werner");
-        dto.setTipoPessoa(TipoPessoa.F);
+        InclusaoDTO dto = getInclusaoDTO("Chave1");
 
         ValidaSeJaPossuiCadastro validaSeJaPossuiCadastro = new ValidaSeJaPossuiCadastro(repository);
         ValidaTipoEmail validaTipoEmail = new ValidaTipoEmail();
@@ -108,14 +87,7 @@ class ChaveServiceInserirTest {
 
     @Test
     void deveGerarExceptionAoInserirChave_ValorChaveImcompativel() {
-        InclusaoDTO dto = new InclusaoDTO();
-        dto.setTipoChave(TipoChave.ALEATORIO);
-        dto.setValorChave("Chave.1");
-        dto.setTipoConta(TipoConta.CORRENTE);
-        dto.setNumeroAgencia(1);
-        dto.setNumeroConta(1);
-        dto.setNomeCorrentista("Werner");
-        dto.setTipoPessoa(TipoPessoa.F);
+        InclusaoDTO dto = getInclusaoDTO("Chave.1");
 
         ValidaSeJaPossuiCadastro validaSeJaPossuiCadastro = new ValidaSeJaPossuiCadastro(repository);
         ValidaTipoAleatorio validaTipoAleatorio = new ValidaTipoAleatorio();
@@ -128,6 +100,18 @@ class ChaveServiceInserirTest {
 
         assertThrows(RegexException.class, () -> service.inserirChave(dto));
         verify(repository, times(0)).save(any(Chave.class));
+    }
+
+    private InclusaoDTO getInclusaoDTO(String valorChave) {
+        InclusaoDTO dto = new InclusaoDTO();
+        dto.setTipoChave(TipoChave.ALEATORIO);
+        dto.setValorChave(valorChave);
+        dto.setTipoConta(TipoConta.CORRENTE);
+        dto.setNumeroAgencia(1);
+        dto.setNumeroConta(1);
+        dto.setNomeCorrentista("Werner");
+        dto.setTipoPessoa(TipoPessoa.F);
+        return dto;
     }
 
 }

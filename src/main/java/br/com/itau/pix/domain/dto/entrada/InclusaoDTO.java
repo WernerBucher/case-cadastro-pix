@@ -9,10 +9,10 @@ import javax.validation.constraints.NotNull;
 @Data
 public class InclusaoDTO extends BaseDTO {
 
-    @NotNull
+    @NotNull(message = "{tipoChave.notnull}")
     private TipoChave tipoChave;
 
-    @NotBlank
+    @NotBlank(message = "{valorChave.notblank}")
     private String valorChave;
 
 }

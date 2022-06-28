@@ -8,6 +8,6 @@ import java.util.UUID;
 @Data
 public class AlteracaoDTO extends BaseDTO {
 
-    @NotNull
+    @NotNull(message = "{id.notnull}")
     private UUID id;
 }
