@@ -5,7 +5,7 @@ import br.com.itau.pix.domain.enums.TipoConta;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
-import br.com.itau.pix.domain.validation.IValidadorDeletarChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveDeletar;
 import br.com.itau.pix.domain.validation.chave.ValidaSeChaveInativa;
 import br.com.itau.pix.exception.ChaveInativaException;
 import org.assertj.core.api.Assertions;
@@ -31,7 +31,7 @@ class ChaveServiceDeletarTest {
     private ChaveRepository repository;
 
     @Mock
-    private List<IValidadorDeletarChave> validadorDeletarChave;
+    private List<IValidadorChaveDeletar> validadorDeletarChave;
 
     @InjectMocks
     private ChaveService service;
@@ -62,7 +62,7 @@ class ChaveServiceDeletarTest {
         ValidaSeChaveInativa validaSeChaveInativa1 = new ValidaSeChaveInativa(repository);
         ValidaSeChaveInativa validaSeChaveInativa2 = new ValidaSeChaveInativa(repository);
 
-        List<IValidadorDeletarChave> validadorList = new ArrayList<>();
+        List<IValidadorChaveDeletar> validadorList = new ArrayList<>();
         validadorList.add(validaSeChaveInativa1);
         validadorList.add(validaSeChaveInativa2);
 
@@ -83,7 +83,7 @@ class ChaveServiceDeletarTest {
         ValidaSeChaveInativa validaSeChaveInativa1 = new ValidaSeChaveInativa(repository);
         ValidaSeChaveInativa validaSeChaveInativa2 = new ValidaSeChaveInativa(repository);
 
-        List<IValidadorDeletarChave> validadorList = new ArrayList<>();
+        List<IValidadorChaveDeletar> validadorList = new ArrayList<>();
         validadorList.add(validaSeChaveInativa1);
         validadorList.add(validaSeChaveInativa2);
 

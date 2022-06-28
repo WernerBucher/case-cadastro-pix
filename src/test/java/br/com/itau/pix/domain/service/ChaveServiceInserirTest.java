@@ -6,7 +6,7 @@ import br.com.itau.pix.domain.enums.TipoConta;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
-import br.com.itau.pix.domain.validation.IValidadorNovaChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
 import br.com.itau.pix.domain.validation.chave.ValidaSeJaPossuiCadastro;
 import br.com.itau.pix.domain.validation.chave.ValidaTipoAleatorio;
 import br.com.itau.pix.domain.validation.chave.ValidaTipoEmail;
@@ -36,7 +36,7 @@ class ChaveServiceInserirTest {
     private ChaveRepository repository;
 
     @Mock
-    private List<IValidadorNovaChave> validadorNovaChave;
+    private List<IValidadorChaveInserir> validadorNovaChave;
 
     @InjectMocks
     private ChaveService service;
@@ -74,7 +74,7 @@ class ChaveServiceInserirTest {
         ValidaSeJaPossuiCadastro validaSeJaPossuiCadastro = new ValidaSeJaPossuiCadastro(repository);
         ValidaTipoEmail validaTipoEmail = new ValidaTipoEmail();
 
-        List<IValidadorNovaChave> validadorNovaChaves = new ArrayList<>();
+        List<IValidadorChaveInserir> validadorNovaChaves = new ArrayList<>();
         validadorNovaChaves.add(validaTipoEmail);
         validadorNovaChaves.add(validaSeJaPossuiCadastro);
 
@@ -92,7 +92,7 @@ class ChaveServiceInserirTest {
         ValidaSeJaPossuiCadastro validaSeJaPossuiCadastro = new ValidaSeJaPossuiCadastro(repository);
         ValidaTipoAleatorio validaTipoAleatorio = new ValidaTipoAleatorio();
 
-        List<IValidadorNovaChave> validadorNovaChaves = new ArrayList<>();
+        List<IValidadorChaveInserir> validadorNovaChaves = new ArrayList<>();
         validadorNovaChaves.add(validaTipoAleatorio);
         validadorNovaChaves.add(validaSeJaPossuiCadastro);
 

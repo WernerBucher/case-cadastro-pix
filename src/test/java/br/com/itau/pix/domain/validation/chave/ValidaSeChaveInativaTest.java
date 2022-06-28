@@ -3,7 +3,7 @@ package br.com.itau.pix.domain.validation.chave;
 import br.com.itau.pix.domain.dto.entrada.AlteracaoDTO;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
-import br.com.itau.pix.domain.validation.IValidadorDeletarChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveDeletar;
 import br.com.itau.pix.exception.ChaveInativaException;
 import br.com.itau.pix.util.MockUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ class ValidaSeChaveInativaTest {
     @Mock
     ChaveRepository repository;
 
-    IValidadorDeletarChave validador;
+    IValidadorChaveDeletar validador;
 
     AlteracaoDTO dtoUpdate;
 

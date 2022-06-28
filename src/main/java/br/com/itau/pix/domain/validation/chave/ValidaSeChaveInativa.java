@@ -2,8 +2,8 @@ package br.com.itau.pix.domain.validation.chave;
 
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
-import br.com.itau.pix.domain.validation.IValidadorAlteracaoChave;
-import br.com.itau.pix.domain.validation.IValidadorDeletarChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveAlterar;
+import br.com.itau.pix.domain.validation.IValidadorChaveDeletar;
 import br.com.itau.pix.exception.ChaveInativaException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class ValidaSeChaveInativa implements IValidadorAlteracaoChave, IValidadorDeletarChave {
+public class ValidaSeChaveInativa implements IValidadorChaveAlterar, IValidadorChaveDeletar {
 
     private final ChaveRepository repository;
 

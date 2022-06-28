@@ -2,7 +2,7 @@ package br.com.itau.pix.domain.validation.chave;
 
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
 import br.com.itau.pix.domain.model.Chave;
-import br.com.itau.pix.domain.validation.IValidadorNovaChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
 import br.com.itau.pix.exception.RegexException;
 import br.com.itau.pix.util.MockUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,7 @@ class ValidaTipoCpfTest{
     public static final int PRIORIDADE = 40;
     public static final String LISTA_MOCK_VALIDO = "src/test/resources/insert_lista_CpfValido.json";
     public static final String LISTA_MOCK_INVALIDO = "src/test/resources/insert_lista_CpfInvalido.json";
-    IValidadorNovaChave validador;
+    IValidadorChaveInserir validador;
     List<InclusaoDTO> listaValida;
     List<InclusaoDTO> listaInvalida;
 

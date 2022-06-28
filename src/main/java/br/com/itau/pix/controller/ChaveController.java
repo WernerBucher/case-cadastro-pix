@@ -53,12 +53,12 @@ public class ChaveController {
         return ResponseEntity.ok(RespostaBuilder.builder(chave).completaComData());
     }
 
-    @ApiOperation(value = "Consultar todas chaves com filtros")
+    @ApiOperation(value = "Consultar de chaves, com filtros")
     @GetMapping()
-    public ResponseEntity<List<RespostaComDataDTO>> listaChavesComFiltro(@RequestParam(value = "nomeCorrentista", required = false) String nome, @RequestParam(value = "tipoChave", required = false) String tipoChave){
-        List<Chave> chaves = chaveService.listarComFiltro(nome, tipoChave);
+    public ResponseEntity<List<RespostaComDataDTO>> listaChavesComFiltro(@RequestParam(value = "id", required = false) UUID id, @RequestParam(value = "nomeCorrentista", required = false) String nome, @RequestParam(value = "tipoChave", required = false) String tipoChave){
+        List<Chave> chaves = chaveService.listarComFiltro(id, nome, tipoChave);
         List<RespostaComDataDTO> resposta = chaves.stream().map(chave -> RespostaBuilder.builder(chave).completaComData()).collect(Collectors.toList());
-        return ResponseEntity.ok(resposta);
+        return resposta.isEmpty()?ResponseEntity.notFound().build():ResponseEntity.ok(resposta);
     }
 
 }

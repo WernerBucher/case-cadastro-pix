@@ -3,13 +3,13 @@ package br.com.itau.pix.domain.validation.chave;
 import br.com.itau.pix.domain.enums.TipoChave;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.validation.CpfValidator;
-import br.com.itau.pix.domain.validation.IValidadorAlteracaoChave;
-import br.com.itau.pix.domain.validation.IValidadorNovaChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveAlterar;
+import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
 import br.com.itau.pix.exception.RegexException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidaTipoCpf implements IValidadorNovaChave, IValidadorAlteracaoChave {
+public class ValidaTipoCpf implements IValidadorChaveInserir, IValidadorChaveAlterar {
 
     @Override
     public Integer getPrioridade() {

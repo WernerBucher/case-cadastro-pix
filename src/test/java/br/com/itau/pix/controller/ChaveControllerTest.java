@@ -141,7 +141,7 @@ class ChaveControllerTest {
         Chave mockChaveNoBanco = getMockChaveNoBanco(TipoChave.ALEATORIO, "valorChave", null);
 
 
-        doReturn(Collections.singletonList(mockChaveNoBanco)).when(service).listarComFiltro(any(), any());
+        doReturn(Collections.singletonList(mockChaveNoBanco)).when(service).listarComFiltro(any(), any(), any());
 
         mockMvc.perform(get("/chaves")
                         .param("nomeCorrentista", nome)
@@ -156,7 +156,7 @@ class ChaveControllerTest {
         Chave mockChaveNoBanco = getMockChaveNoBanco(TipoChave.ALEATORIO, "valorChave", null);
 
 
-        doReturn(Collections.singletonList(mockChaveNoBanco)).when(service).listarComFiltro(any(), any());
+        doReturn(Collections.singletonList(mockChaveNoBanco)).when(service).listarComFiltro(any(), any(), any());
 
         mockMvc.perform(get("/chaves")
                         .param("nomeCorrentista", nome)
@@ -172,7 +172,7 @@ class ChaveControllerTest {
         Chave mockChaveNoBanco = getMockChaveNoBanco(TipoChave.ALEATORIO, "valorChave", null);
 
 
-        doReturn(Collections.singletonList(mockChaveNoBanco)).when(service).listarComFiltro(any(), any());
+        doReturn(Collections.singletonList(mockChaveNoBanco)).when(service).listarComFiltro(any(), any(), any());
 
         mockMvc.perform(get("/chaves")
                         .param("tipoChave", "aleatorio")

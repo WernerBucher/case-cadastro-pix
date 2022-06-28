@@ -6,7 +6,7 @@ import br.com.itau.pix.domain.enums.TipoConta;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
-import br.com.itau.pix.domain.validation.IValidadorAlteracaoChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveAlterar;
 import br.com.itau.pix.domain.validation.chave.ValidaSeChaveInativa;
 import br.com.itau.pix.domain.validation.chave.ValidaSePossuiMaisDeCincoCadastroPF;
 import br.com.itau.pix.domain.validation.chave.ValidaTipoEmail;
@@ -36,7 +36,7 @@ class ChaveServiceEditarTest {
     private ChaveRepository repository;
 
     @Mock
-    private List<IValidadorAlteracaoChave> validadorAlteracaoChave;
+    private List<IValidadorChaveAlterar> validadorAlteracaoChave;
 
 
     @InjectMocks
@@ -131,7 +131,7 @@ class ChaveServiceEditarTest {
         ValidaSeChaveInativa validaSeChaveInativa = new ValidaSeChaveInativa(repository);
         ValidaTipoEmail validaTipoEmail = new ValidaTipoEmail();
 
-        List<IValidadorAlteracaoChave> validadorList = new ArrayList<>();
+        List<IValidadorChaveAlterar> validadorList = new ArrayList<>();
         validadorList.add(validaTipoEmail);
         validadorList.add(validaSeChaveInativa);
 
@@ -157,7 +157,7 @@ class ChaveServiceEditarTest {
         ValidaSeChaveInativa validaSeChaveInativa = new ValidaSeChaveInativa(repository);
         ValidaSePossuiMaisDeCincoCadastroPF validaSePossuiMaisDeCincoCadastroPF = new ValidaSePossuiMaisDeCincoCadastroPF(repository);
 
-        List<IValidadorAlteracaoChave> validadorList = new ArrayList<>();
+        List<IValidadorChaveAlterar> validadorList = new ArrayList<>();
         validadorList.add(validaSePossuiMaisDeCincoCadastroPF);
         validadorList.add(validaSeChaveInativa);
 

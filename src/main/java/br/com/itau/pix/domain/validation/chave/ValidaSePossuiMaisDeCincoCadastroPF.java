@@ -3,8 +3,8 @@ package br.com.itau.pix.domain.validation.chave;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
-import br.com.itau.pix.domain.validation.IValidadorAlteracaoChave;
-import br.com.itau.pix.domain.validation.IValidadorNovaChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveAlterar;
+import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
 import br.com.itau.pix.exception.PossuiLimiteMaximoDeChavesException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class ValidaSePossuiMaisDeCincoCadastroPF implements IValidadorNovaChave, IValidadorAlteracaoChave {
+public class ValidaSePossuiMaisDeCincoCadastroPF implements IValidadorChaveInserir, IValidadorChaveAlterar {
 
     public static final int MAX_CHAVES_PF = 5;
     private final ChaveRepository repository;

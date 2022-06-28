@@ -5,6 +5,7 @@ import br.com.itau.pix.domain.enums.TipoConta;
 import br.com.itau.pix.domain.enums.TipoPessoa;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
+import br.com.itau.pix.domain.validation.IValidadorConsulta;
 import br.com.itau.pix.exception.ChaveNaoEncontradaException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +29,9 @@ class ChaveServiceListarTest {
 
     @Mock
     private ChaveRepository repository;
+
+    @Mock
+    private List<IValidadorConsulta> validadorConsulta;
 
     @InjectMocks
     private ChaveService service;
@@ -56,7 +60,7 @@ class ChaveServiceListarTest {
 
     @Test
     void deveRetornarListaVaziaAoListarComFiltro_ChaveNaoEncontrada() {
-        List<Chave> chaveList = service.listarComFiltro("nome", "CPF");
+        List<Chave> chaveList = service.listarComFiltro(null,"nome", "CPF");
         Assertions.assertThat(chaveList).isNotNull();
     }
 

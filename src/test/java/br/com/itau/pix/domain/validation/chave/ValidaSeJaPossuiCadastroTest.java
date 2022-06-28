@@ -4,7 +4,7 @@ import br.com.itau.pix.domain.dto.entrada.AlteracaoDTO;
 import br.com.itau.pix.domain.dto.entrada.InclusaoDTO;
 import br.com.itau.pix.domain.model.Chave;
 import br.com.itau.pix.domain.repository.ChaveRepository;
-import br.com.itau.pix.domain.validation.IValidadorNovaChave;
+import br.com.itau.pix.domain.validation.IValidadorChaveInserir;
 import br.com.itau.pix.exception.ChaveJaExisteException;
 import br.com.itau.pix.util.MockUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +29,7 @@ class ValidaSeJaPossuiCadastroTest {
     @Mock
     ChaveRepository repository;
 
-    IValidadorNovaChave validador;
+    IValidadorChaveInserir validador;
 
     InclusaoDTO dtoInsert;
     AlteracaoDTO dtoUpdate;
